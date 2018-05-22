@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Doorman</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div>
+			<h1>Doorman</h1>
+			<div class="main-door">
+				<button id="main-door">Open Main Door</button>
+			</div>
+			<div class="unit-door">
+				<button id="unit-door">Open Unit Door</button>
+			</div>
+		</div>
+		<style>
+			body {height:98vh;text-align: center;background: linear-gradient(45deg, #c5deea 0%,#8abbd7 31%,#066dab 100%);}
+			button {display:block;margin:10px auto;}
+		</style>
+		<script>
+		var mainDoorButton = document.getElementById("main-door");
+		mainDoorButton.onclick = function(){
+			var oReq = new XMLHttpRequest();
+			oReq.addEventListener("load", function(){var obj = JSON.parse(oReq.response);obj.success ? mainDoorButton.style.backgroundColor = "green" : mainDoorButton.style.backgroundColor = "red";});
+			oReq.open("GET", "http:/192.168.0.50/api/toggle");
+			oReq.send();
+			}
+		var unitDoorButton = document.getElementById("unit-door");
+		unitDoorButton.onclick = function(){
+			var oReq = new XMLHttpRequest();
+			oReq.addEventListener("load", function(){var obj = JSON.parse(oReq.response);obj.success ? unitDoorButton.style.backgroundColor = "green" : unitDoorButton.style.backgroundColor = "red";});
+			oReq.open("GET", "http:/192.168.0.51/api/toggle");
+			oReq.send();
+			}
+		</script>
+	</body>
+</html>
